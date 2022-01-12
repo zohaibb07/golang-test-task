@@ -76,7 +76,7 @@ func AverageNumber(str string) float64 {
 		average = (numbers_total / numbers_count)
 	}
 
-	return average // it the sequence is NOT valid - the default value (0.0) will be returned
+	return average // if the sequence is NOT valid - the default value (0.0) will be returned
 }
 
 // WholeStory Function take string as an input
@@ -87,22 +87,27 @@ func WholeStory(str string) string {
 
 	var storyText []string
 
-	splittedArray := strings.Split(str, "-") // split by dash
+	if TestValidity(str) { // if only the string is valid
 
-	// even elements are numbers and odd indices elements are ASCII values
+		splittedArray := strings.Split(str, "-") // split by dash
 
-	for index := range splittedArray {
-		if index%2 != 0 { // ODD INDEX
+		// even elements are numbers and odd indices elements are ASCII values
 
-			if len(splittedArray[index]) > 0 { // Check on length
+		for index := range splittedArray {
+			if index%2 != 0 { // ODD INDEX
+
+				// No need to check the length as it is a valid string sequence
+				//
 				storyText = append(storyText, splittedArray[index])
-			}
 
+			}
 		}
+
 	}
 
 	// Story text separted by Spaces
 	//
+	// When the sequence is NOT valid - an empty string will be returned
 	return strings.Join(storyText, " ")
 }
 
