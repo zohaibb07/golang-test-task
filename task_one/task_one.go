@@ -128,49 +128,52 @@ func StoryStats(str string) (string, string, float64, []string) {
 		averageLenWordList        []string
 	)
 
-	splitted_array := strings.Split(str, "-") // split by dash
+	if TestValidity(str) { // if only the string is valid
 
-	var storyText []string   // get all words
-	wordCount := 0.0         // Total words in story
-	accumulatedLength := 0.0 // Sum of lengths of all words
+		splitted_array := strings.Split(str, "-") // split by dash
 
-	// even elements are numbers and odd indices elements are ASCII values
+		var storyText []string   // get all words
+		wordCount := 0.0         // Total words in story
+		accumulatedLength := 0.0 // Sum of lengths of all words
 
-	for index := range splitted_array {
+		// even elements are numbers and odd indices elements are ASCII values
 
-		if index%2 != 0 { // ODD INDEX - runs for every word
+		for index := range splitted_array {
 
-			if len(splitted_array[index]) > 0 { // checks the length of word
+			if index%2 != 0 { // ODD INDEX - runs for every word
+
+				// No need to check the length as it is a valid string sequence
+				//
 				storyText = append(storyText, splitted_array[index])
-
 				wordCount++
 				accumulatedLength += float64(len(splitted_array[index]))
 
 			}
-
 		}
-	}
 
-	// Sort the slice shortest to longest word in ascending order
-	//
-	sort.Slice(storyText, func(i, j int) bool {
-		return len(storyText[i]) < len(storyText[j])
-	})
+		averageWordLen = accumulatedLength / wordCount // Avergae word length
 
-	shortestWord = storyText[0]               // Shortest word in sequence
-	longestWord = storyText[len(storyText)-1] // Longest word in sequence
+		// Sort the slice shortest to longest word in ascending order
+		//
+		sort.Slice(storyText, func(i, j int) bool {
+			return len(storyText[i]) < len(storyText[j])
+		})
 
-	averageWordLen = accumulatedLength / wordCount // Average word length
+		shortestWord = storyText[0]               // Shortest word in sequence
+		longestWord = storyText[len(storyText)-1] // Longest word in sequence
 
-	//Get the list of word that has equal length (Rounded up or rounded down) of average word length
-	//
-	for _, word := range storyText {
-		if len(word) == int(math.Ceil(averageWordLen)) || len(word) == int(math.Floor(averageWordLen)) {
-			averageLenWordList = append(averageLenWordList, word) // Avergae word length list
+		//Get the list of word that has equal length (Rounded up or rounded down) of average word length
+		//
+		for _, word := range storyText {
+			if len(word) == int(math.Ceil(averageWordLen)) || len(word) == int(math.Floor(averageWordLen)) {
+				averageLenWordList = append(averageLenWordList, word) // Avergae word length list
+			}
 		}
+
 	}
 
 	// When sequence is NOT valid - returned values are:  "","",0.0,[]
+	//
 	return shortestWord, longestWord, averageWordLen, averageLenWordList
 
 }
