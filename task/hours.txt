@@ -1,0 +1,23 @@
+
+# Hours - golang-test-task
+
+1. Task understanding and making initial design:  0.5 hour
+2. Implementation:
+     a. Basic project structure: 0.5 hour
+     b. Task 1 : 3.5 hours
+        - `testValidity`: Expected: 0.5 hour & Actual: 0.25
+        - `averageNumber`: Expected: 0.5 hour & Actual: 0.75
+        - `wholeStory`: Expected: 0.5 hour & Actual: 0.75
+        - `storyStats`: Expected: 1.5 hour & Actual: 1.75
+
+     c. Task 2 : 3.5 hours
+        - `generate`: Expected: 1 hour & Actual: 1.25 hours
+        - Unit Test `testValidity` : Expected: 0.5 hour & Actual: 0.5 hours
+        - Unit Test `averageNumber` : Expected: 0.5 hour & Actual: 0.25 hours
+        - Unit Test `wholeStory` : Expected: 0.5 hour & Actual: 0.25 hours
+        - Unit Test `storyStats` : Expected: 0.5 hour & Actual: 1.25 hours
+     d. Code Docs: 0.5 hour
+5. Writing hours.txt file: 0.5 hour
+
+
+Total Hours: 9 hours
