@@ -1,6 +1,7 @@
 package task_one
 
 import (
+	"strconv"
 	"strings"
 )
 
@@ -17,6 +18,31 @@ import (
 // Returns: True If string complies the definition or False otherwise
 func TestValidity(str string) bool {
 
+	// split the string by dash "-"
+	splitted_array := strings.Split(str, "-")
+
+	// By Defintion of a valid String Sequence:
+	//
+	// Elements present at Even indices are 'Unsigned Numbers'
+	// and elements at odd indices are 'ASCII values'
+	for index := range splitted_array {
+		if index%2 == 0 { // EVEN INDEX
+
+			// Convert the value to an integer
+			//
+			_, err := strconv.Atoi(splitted_array[index])
+
+			if err != nil {
+				return false
+			}
+
+		} else { // ODD INDEX
+			if len(splitted_array[index]) == 0 {
+				return false
+			}
+
+		}
+	}
 	return true // ALL PASS
 }
 
