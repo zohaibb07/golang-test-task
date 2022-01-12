@@ -87,6 +87,20 @@ func WholeStory(str string) string {
 
 	var storyText []string
 
+	splittedArray := strings.Split(str, "-") // split by dash
+
+	// even elements are numbers and odd indices elements are ASCII values
+
+	for index := range splittedArray {
+		if index%2 != 0 { // ODD INDEX
+
+			if len(splittedArray[index]) > 0 { // Check on length
+				storyText = append(storyText, splittedArray[index])
+			}
+
+		}
+	}
+
 	// Story text separted by Spaces
 	//
 	return strings.Join(storyText, " ")
