@@ -177,3 +177,19 @@ func StoryStats(str string) (string, string, float64, []string) {
 	return shortestWord, longestWord, averageWordLen, averageLenWordList
 
 }
+
+//Task 2
+//
+//* Write a `generate` function, that takes boolean flag and generates random correct strings
+// if the parameter is `true` and random incorrect strings if the flag is `false`.
+//
+//
+// Generate function takes a boolean and return valid/invalid string sequence
+//
+// true -> generate a valid sequence || false -> generate an invalid sequence
+func Generate(validityFlag bool) string {
+
+	var sequence string
+
+	return sequence
+}
