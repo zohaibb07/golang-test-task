@@ -54,6 +54,27 @@ func AverageNumber(str string) float64 {
 
 	var average float64
 
+	splitted_array := strings.Split(str, "-") // split by dash
+
+	numbers_count := 0.0
+	numbers_total := 0.0
+
+	// even elements are numbers and odd indices elements are ASCII values
+	for index := range splitted_array {
+		if index%2 == 0 {
+
+			intVar, _ := strconv.Atoi(splitted_array[index])
+
+			numbers_count++                  // increase the number by 1
+			numbers_total += float64(intVar) // convert it into float value
+
+		}
+
+		// take the average
+		average = (numbers_total / numbers_count)
+
+	}
+
 	return average
 }
 
