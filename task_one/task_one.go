@@ -2,9 +2,11 @@ package task_one
 
 import (
 	"math"
+	"math/rand"
 	"sort"
 	"strconv"
 	"strings"
+	"time"
 )
 
 // # String Specs
@@ -178,7 +180,7 @@ func StoryStats(str string) (string, string, float64, []string) {
 
 }
 
-//Task 2
+// ====================[Task 2]===================
 //
 //* Write a `generate` function, that takes boolean flag and generates random correct strings
 // if the parameter is `true` and random incorrect strings if the flag is `false`.
@@ -189,7 +191,54 @@ func StoryStats(str string) (string, string, float64, []string) {
 // true -> generate a valid sequence || false -> generate an invalid sequence
 func Generate(validityFlag bool) string {
 
-	var sequence string
+	var storySequence string
 
-	return sequence
+	rand.Seed(time.Now().UnixNano())
+
+	maxWordLen := 4294967295 // Max number in unsigned integers
+
+	// Assumption:
+	// there may contains ONLY 1 or AT_MAX 11 Sequences in a story that will be chosen at random
+	//
+	totalSequences := 1 + rand.Intn(10) // Total Sequences in story chosen at random
+
+	var word, number string
+
+	for i := 0; i < totalSequences; i++ {
+
+		// By definition of valid sequence - a word length cannot be negative or zero
+		//
+		// Addition is to handle zero case.
+		word = randSeq(1 + rand.Intn(10))
+
+		number = strconv.Itoa(rand.Intn(maxWordLen))
+
+		storySequence += number + "-" + word + "-"
+	}
+
+	if validityFlag == true {
+
+		// discard the last dash "-" in Valid sequence otherwise it is invalid
+		storySequence = storySequence[:len(storySequence)-1]
+
+	}
+
+	return storySequence
+}
+
+// HELPER UTILITIES
+//
+// Letters used in Strings
+var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
+// randSeq is helper function that takes interger n as input length
+//
+// it generates a [n length] random sequence of characters (random combination of letters  defined above)
+// here n can't be negative
+func randSeq(n int) string {
+	b := make([]rune, n)
+	for i := range b {
+		b[i] = letters[rand.Intn(len(letters))]
+	}
+	return string(b)
 }
