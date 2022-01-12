@@ -46,7 +46,7 @@ func TestValidity(str string) bool {
 	return true // ALL PASS
 }
 
-// AverageNumber Function take string as an input
+// AverageNumber Function takes string as an input
 //
 // Returns: (a float) - Average of all numbers present if String is a VALID Sequence
 // and default value will be 0.0 if input is invalid.
@@ -79,7 +79,7 @@ func AverageNumber(str string) float64 {
 	return average // if the sequence is NOT valid - the default value (0.0) will be returned
 }
 
-// WholeStory Function take string as an input
+// WholeStory Function takes string as an input
 //
 // Returns: (a string) - Extracted all text from input string separated by Spaces
 // and default value will be empty string ("") if input is invalid.
@@ -111,7 +111,7 @@ func WholeStory(str string) string {
 	return strings.Join(storyText, " ")
 }
 
-// StoryStats Function take string as an input
+// StoryStats Function takes string as an input
 //
 // Returns: four things -
 //	 * the shortest word
@@ -126,6 +126,32 @@ func StoryStats(str string) (string, string, float64, []string) {
 		averageLenWordList        []string
 	)
 
+	splitted_array := strings.Split(str, "-") // split by dash
+
+	var storyText []string   // get all words
+	wordCount := 0.0         // Total words in story
+	accumulatedLength := 0.0 // Sum of lengths of all words
+
+	// even elements are numbers and odd indices elements are ASCII values
+
+	for index := range splitted_array {
+
+		if index%2 != 0 { // ODD INDEX - runs for every word
+
+			if len(splitted_array[index]) > 0 { // checks the length of word
+				storyText = append(storyText, splitted_array[index])
+
+				wordCount++
+				accumulatedLength += float64(len(splitted_array[index]))
+
+			}
+
+		}
+	}
+
+	averageWordLen = accumulatedLength / wordCount
+
+	// When sequence is NOT valid - returned values are:  "","",0.0,[]
 	return shortestWord, longestWord, averageWordLen, averageLenWordList
 
 }
