@@ -1,6 +1,7 @@
 package task_one
 
 import (
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -149,7 +150,16 @@ func StoryStats(str string) (string, string, float64, []string) {
 		}
 	}
 
-	averageWordLen = accumulatedLength / wordCount
+	// Sort the slice shortest to longest word in ascending order
+	//
+	sort.Slice(storyText, func(i, j int) bool {
+		return len(storyText[i]) < len(storyText[j])
+	})
+
+	shortestWord = storyText[0]               // Shortest word in sequence
+	longestWord = storyText[len(storyText)-1] // Longest word in sequence
+
+	averageWordLen = accumulatedLength / wordCount // Average word length
 
 	// When sequence is NOT valid - returned values are:  "","",0.0,[]
 	return shortestWord, longestWord, averageWordLen, averageLenWordList
