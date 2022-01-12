@@ -54,28 +54,29 @@ func AverageNumber(str string) float64 {
 
 	var average float64
 
-	splitted_array := strings.Split(str, "-") // split by dash
+	// if only the string is a valid sequence
+	if TestValidity(str) {
 
-	numbers_count := 0.0
-	numbers_total := 0.0
+		splitted_array := strings.Split(str, "-") // split by dash
 
-	// even elements are numbers and odd indices elements are ASCII values
-	for index := range splitted_array {
-		if index%2 == 0 {
+		var numbers_count, numbers_total float64 // default values are 0.0
 
-			intVar, _ := strconv.Atoi(splitted_array[index])
+		// even elements are numbers and odd indices elements are ASCII values
+		for index := range splitted_array {
+			if index%2 == 0 {
 
-			numbers_count++                  // increase the number by 1
-			numbers_total += float64(intVar) // convert it into float value
+				intVar, _ := strconv.Atoi(splitted_array[index])
 
+				numbers_count++ // increase the number by 1
+				numbers_total += float64(intVar)
+
+			}
 		}
-
 		// take the average
 		average = (numbers_total / numbers_count)
-
 	}
 
-	return average
+	return average // it the sequence is NOT valid - the default value (0.0) will be returned
 }
 
 // WholeStory Function take string as an input
