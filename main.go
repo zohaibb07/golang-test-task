@@ -12,5 +12,6 @@ func main() {
 	fmt.Println(task_one.TestValidity(sample_str))
 	fmt.Println(task_one.AverageNumber(sample_str))
 	fmt.Println(task_one.WholeStory(sample_str))
+	fmt.Println(task_one.StoryStats(sample_str))
 
 }
