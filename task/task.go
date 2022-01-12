@@ -1,4 +1,4 @@
-package task_one
+package task
 
 import (
 	"math"
