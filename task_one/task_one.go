@@ -1,6 +1,7 @@
 package task_one
 
 import (
+	"math"
 	"sort"
 	"strconv"
 	"strings"
@@ -160,6 +161,14 @@ func StoryStats(str string) (string, string, float64, []string) {
 	longestWord = storyText[len(storyText)-1] // Longest word in sequence
 
 	averageWordLen = accumulatedLength / wordCount // Average word length
+
+	//Get the list of word that has equal length (Rounded up or rounded down) of average word length
+	//
+	for _, word := range storyText {
+		if len(word) == int(math.Ceil(averageWordLen)) || len(word) == int(math.Floor(averageWordLen)) {
+			averageLenWordList = append(averageLenWordList, word) // Avergae word length list
+		}
+	}
 
 	// When sequence is NOT valid - returned values are:  "","",0.0,[]
 	return shortestWord, longestWord, averageWordLen, averageLenWordList
