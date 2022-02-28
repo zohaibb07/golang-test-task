@@ -1,0 +1,103 @@
+
+======================================
+
+/*
+ * The function storyStats returns four things:
+ * the shortest word
+ * the longest word
+ * the average word length
+ * the list of words that are of length equal to the average word rounded up and down, or empty list if such words do not exist. 
+ */
+func storyStats(str string) (map[string]string, error) {
+	var err error
+	m := make(map[string]string)
+	m["shortest"] = ""
+	m["longest"] = ""
+	m["average"] = ""
+
+	str = strings.TrimSpace(str)
+	if str == "" {
+		err = errors.New("can't work empty string")
+		return nil, err
+	}
+	var shortest int
+	var longest int
+	words := strings.Fields(str)
+
+	for index, element := range words {
+		if index == 0 {
+			// set intail values
+			shortest = len(element)
+			longest = len(element)
+			m["shortest"] = element
+			m["longest"] = element
+			continue
+		}
+		// check longest and shotest words
+		if shortest > len(element) {
+			m["shortest"] = element
+			shortest = len(element)
+		}
+		if longest < len(element) {
+			m["longest"] = element
+			longest = len(element)
+		}
+	}
+	m["average"] = fmt.Sprint(averageNumber(str))
+
+	return m, err
+}
+
+CODE REVIEW `storyStats`:
+
+// The function `storyStats` need to return FOUR things but THREE were returned.
+// list of words not being returned - <MISSING>.
+
+// The average word length is not the AvergeNumber (i.e. the average of all numbers).
+// Average word length is the average length of all ASCII words in a valid Sequence.
+
+// Wrong implementation.
+// We need to split the sequence by dash ("-"), but we are splitting it by whitespace
+// that make the shortest and longest words incorrect.
+// Returning an Error (msg) is good option when INPUT is NOT valid. 
+
+// All Test cases will fail even with Valid / Invalid sequence.
+
+// Empty Strings Sequence (white space strings) will be the ONLY sequence that will be marked as Invalid
+// Test case will fail when an invalid strings will be passed as argument
+// other than empty string sequence
+
+// I have to change a line to make the code work as I am returning a floating point value.
+// FROM 	m["average"] = fmt.Sprint( AverageNumber(str))
+// TO 		m["average"] = fmt.Sprintf("%f", AverageNumber(str))  // convert float to string
+
+======================================
+
+/*
+ * The function testValidity returns `true` if the given strings fits the specs, 
+ * and `false` otherwise.
+ */
+func testValidity(str string) bool {
+	patern := `[-]?\d[\d]*[\]?[\d{2}]*?[-]`
+	re := regexp.MustCompile(patern)
+	return re.MatchString(str)
+}
+
+CODE REVIEW `testValidity`:
+
+// In `testValidity` pattern is not correct as per my understanding of the definition of valid sequence.
+
+// Function marks PASS (true) on invalid sequences.
+//
+// some examples of invalid sequences are here:
+// -h--90i9-
+// --h--0i2-
+// -i5-1
+//etc
+
+// PS: If a sequence has a digit (ANYWHERE in the sequence) Followed by dash ("-"); `testValidity` will PASS.
+//
+// Here is the pattern : [-]?\d[\d]*[\]?[\d{2}]*?[-]
+// [-]?  \d   [\d]*[\]?[\d{2}]*?  [-] 
+// Due to \d and [-] minimum string sequence it accepts is "[0-9]-" 
+// Rest pattern is optional due to these Quantifiers  [?, *].
